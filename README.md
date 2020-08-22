@@ -61,4 +61,12 @@ dotnet tool install --global dotnet-ef
 ![Screenshot 2020-06-23 at 2 01 32 AM](https://user-images.githubusercontent.com/16520789/85334075-49b96f80-b4f8-11ea-80f2-cdcba6c56eec.png)
 
 
+`Deploy on heroku`
+Config Vars
+Key : PROJECT_FILE
+Vlaue : Server/MyBlazor.Server.csproj
+buildpack
+https://github.com/jincod/dotnetcore-buildpack
+
+
 
