@@ -62,11 +62,20 @@ dotnet tool install --global dotnet-ef
 
 
 `Deploy on heroku`
-Config Vars
+* Config Vars
+```
 Key : PROJECT_FILE
 Vlaue : Server/MyBlazor.Server.csproj
-buildpack
-https://github.com/jincod/dotnetcore-buildpack
+```
 
+* buildpack
+```
+https://github.com/jincod/dotnetcore-buildpack
+```
+
+* link
+```
+https://blaz0r.herokuapp.com/
+```
 
 
