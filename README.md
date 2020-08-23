@@ -78,4 +78,6 @@ https://github.com/jincod/dotnetcore-buildpack
 https://blaz0r.herokuapp.com/
 ```
 
-
+* new cmd
+dotnet watch --project BlazorTest.Server run
+dotnet watch --project "Portfolio.Client" run --project "Portfolio.Server"

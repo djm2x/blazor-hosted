@@ -6,6 +6,7 @@
   "scripts": {
     "m": "dotnet ef migrations add first && dotnet ef database drop -f && dotnet ef database update && dotnet watch run",
     "b": "cd Server && dotnet watch run",
+    "f": "cd Client && dotnet watch run",
     "p": "dotnet publish -p:BlazorEnableCompression=false -o D:\\dev3\\blazor-hosted\\dist",
     "prod": "npm run prod-front && npm run prod-back",
     "init": "git init && git remote add origin https://github.com/djm2x/blazor-hosted.git",

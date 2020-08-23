@@ -1,0 +1,48 @@
+@page "/todos"
+
+@inherits Todos
+
+<h1>Todo Manager App</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <MatTextField @bind-Value="@myTodoText" Label="Add todo task here"></MatTextField>
+    </div>
+    <div class="col-md-4">
+        <MatDatePicker @bind-Value="@myDeadline"></MatDatePicker>
+    </div>
+    <div class="col-md-4">
+        <MatButton Raised="true" Icon="playlist_add" OnClick="@Click">Add Todo</MatButton>
+    </div>
+</div>
+
+@if (TodoList != null && TodoList.Count>0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ready?</th>
+                <th>Description</th>
+                <th>Deadline</th>
+                <th>Complete</th>
+                <th>Delete</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var td in TodoList)
+            {
+            <tr>
+                <td>
+                    <MatCheckbox @bind-Value="@td.IsCompleted" Disabled="true"></MatCheckbox>
+                </td>
+                <td>@td.Todo</td>
+                <td>@td.Deadline.ToShortDateString()</td>
+                <td><MatButton Icon="done" Outlined="true" @onclick="@(e=> completeItem(td.Id))">Complete</MatButton></td>
+                <td><MatButton Icon="delete" Outlined="true" @onclick="@(e=> deleteItem(td.Id))">Delete</MatButton></td>
+                <td><MatButton Icon="edit" Outlined="true" @onclick="@(e=> editItem(td.Id))">Edit</MatButton></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
