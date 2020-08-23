@@ -1,6 +1,6 @@
 @page "/users"
-@using MyBlazor.Shared
-@inject HttpClient Http
+@* @inject HttpClient Http *@
+@inherits UsersComponent
 
 <div class="row">
     <br>
@@ -55,36 +55,14 @@ else
 }
 </div>
 </div>
-@code {
-    private User[] users;
-    private bool edit = false;
-    private User newUser = new User();
+@* @code {
 
-    protected override async Task OnInitializedAsync()
+    private async Task SubmitUser2()
+
     {
-        users = await Http.GetFromJsonAsync<User[]>("api/user");
-    }
-    private async Task SubmitUser(){
-        Console.WriteLine("here we go");
-        if(edit == false){
-            await Http.PostAsJsonAsync<User>("api/user",newUser);
-            await OnInitializedAsync();
-            newUser = new User();
-        }else{
-            await Http.PutAsJsonAsync<User>("api/user/"+newUser.Id,newUser);
-            await OnInitializedAsync();
-            edit = false;
-            newUser = new User();
-        }
-    }
-    private async Task DeleteUser(int id){
-            await Http.DeleteAsync("api/user/"+id.ToString());
-            await OnInitializedAsync();
-    }
-    private async Task GetUser(int id){
-        newUser = await Http.GetFromJsonAsync<User>("api/user/"+id.ToString());
-        edit = true;
+        await Http.PostAsJsonAsync<MyBlazor.Shared.User>("api/user", null);
+
 
     }
 
-}
+} *@

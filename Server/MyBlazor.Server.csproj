@@ -30,12 +30,12 @@
     <ProjectReference Include="..\Shared\MyBlazor.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!-- <ItemGroup>
     <Watch Include="..\**\*.razor" />
     <Watch Include="..\**\*.scss" />
     <Watch Include="..\**\*.html" />
     <Watch Include="..\**\*.cs" />
-  </ItemGroup>
+  </ItemGroup> -->
 
 
 </Project>

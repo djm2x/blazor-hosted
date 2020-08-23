@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MyBlazor.Server.Migrations
 {
-    [DbContext(typeof(UserContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20200622185601_InitialCreate")]
     partial class InitialCreate
     {

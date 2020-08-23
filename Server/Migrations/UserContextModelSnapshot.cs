@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MyBlazor.Server.Migrations
 {
-    [DbContext(typeof(UserContext))]
+    [DbContext(typeof(AppDbContext))]
     partial class UserContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

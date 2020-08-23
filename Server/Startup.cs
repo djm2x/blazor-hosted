@@ -27,13 +27,26 @@ namespace MyBlazor.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddDbContext<UserContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSwaggerGen(opt => opt.SwaggerDoc("v1",
-            new Microsoft.OpenApi.Models.OpenApiInfo{
-                Version="v1",
-                Title="Fullstack Api"
+            new Microsoft.OpenApi.Models.OpenApiInfo
+            {
+                Version = "v1",
+                Title = "Fullstack Api"
             }));
+
+            services.AddCors(options =>
+            {
+               options.AddPolicy("CorsPolicy", builder =>
+               {
+                   builder
+                   // .WithOrigins ("http://localhost:4200")
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+               });
+            });
 
         }
 
@@ -56,8 +69,10 @@ namespace MyBlazor.Server
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
             app.UseSwagger();
-            app.UseSwaggerUI(opt => opt.SwaggerEndpoint("/swagger/v1/swagger.json","Fullstack Api"));
+            app.UseSwaggerUI(opt => opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Fullstack Api"));
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {
