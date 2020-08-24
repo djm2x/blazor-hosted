@@ -17,10 +17,12 @@ namespace MyBlazor.Client.Services
             this.Http = Http;
         }
 
-        public Task GetList(int startIndex, int pageSize, string sortBy, string sortDir)
+        public Task<Res<T>> GetList(int startIndex, int pageSize, string sortBy, string sortDir)
         {
-            return Http.GetFromJsonAsync<T[]>($"api/{controller}/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}");
+            return Http.GetFromJsonAsync<Res<T>>($"api/{controller}/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}");
         }
+
+
 
         public Task<T[]> Get()
         {
@@ -46,5 +48,11 @@ namespace MyBlazor.Client.Services
         {
             return Http.DeleteAsync($"api/{controller}/delete/{id}");
         }
+    }
+
+    public interface Res<T> {
+        T[] list {set; get;}
+
+        int lenght { get; set; }
     }
 }

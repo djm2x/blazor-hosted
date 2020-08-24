@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using MyBlazor.Client.Services;
 using MyBlazor.Shared;
-using Microsoft.JSInterop;
+using MatBlazor;
 using MyBlazor.Client.Helper;
 
 namespace MyBlazor.Client.Pages.list
@@ -21,12 +21,15 @@ namespace MyBlazor.Client.Pages.list
         protected User o = new User();
 
         protected bool dialogIsOpen = false;
+        protected string sortBy = "id", sortDir = "desc";
+        protected int startIndex = 0, pageSize = 6, Length = 0;
 
         protected override async Task OnInitializedAsync()
         {
-            dataSource = await uow.users.Get();
+            var r = await uow.users.GetList(startIndex, pageSize, sortBy, sortDir);
 
-
+            dataSource = r.list;
+            Length = r.lenght;
         }
 
         // private async Task Log()
@@ -34,42 +37,16 @@ namespace MyBlazor.Client.Pages.list
         //     await JSRuntime.InvokeVoidAsync("console.log", o);
         // }
 
-        protected void SortData(/*MatSortChangedEvent*/ dynamic sort)
+        protected void SortData(MatSortChangedEvent sort)
         {
-            // sortedData = desserts.ToArray();
-            // if (!(sort == null || sort.Direction == MatSortDirection.None || string.IsNullOrEmpty(sort.SortId)))
-            // {
-            //     Comparison<Dessert> comparison = null;
-            //     switch (sort.SortId)
-            //     {
-            //         case "name":
-            //             comparison = (s1, s2) => string.Compare(s1.Name, s2.Name, StringComparison.InvariantCultureIgnoreCase);
-            //             break;
-            //         case "calories":
-            //             comparison = (s1, s2) => s1.Calories.CompareTo(s2.Calories);
-            //             break;
-            //         case "fat":
-            //             comparison = (s1, s2) => s1.Fat.CompareTo(s2.Fat);
-            //             break;
-            //         case "carbs":
-            //             comparison = (s1, s2) => s1.Carbs.CompareTo(s2.Carbs);
-            //             break;
-            //         case "protein":
-            //             comparison = (s1, s2) => s1.Protein.CompareTo(s2.Protein);
-            //             break;
-            //     }
-            //     if (comparison != null)
-            //     {
-            //         if (sort.Direction == MatSortDirection.Desc)
-            //         {
-            //             Array.Sort(sortedData, (s1, s2) => -1 * comparison(s1, s2));
-            //         }
-            //         else
-            //         {
-            //             Array.Sort(sortedData, comparison);
-            //         }
-            //     }
-            // }
+            sortBy = sort.SortId;
+            sortDir = sort.Direction == MatSortDirection.Asc ? "asc" : "desc";
+        }
+
+        protected void OnPage(MatPaginatorPageEvent e)
+        {
+            pageSize = e.PageSize;
+            startIndex = e.PageIndex * e.PageSize;
         }
 
         public async void submit(User o)
@@ -90,7 +67,7 @@ namespace MyBlazor.Client.Pages.list
                 await OnInitializedAsync();
             }
 
-            
+
         }
 
         public void reset()
@@ -100,7 +77,7 @@ namespace MyBlazor.Client.Pages.list
 
         public async void edit(User o)
         {
-            
+
             this.o = o;
             dialogIsOpen = true;
             await console.log(dialogIsOpen);

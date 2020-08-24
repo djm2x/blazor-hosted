@@ -25,7 +25,9 @@
             <MatIconButton Icon="delete" @onclick="@(()=>delete(@context))"></MatIconButton>
         </td>
     </MatTableRow>
+
 </MatTable>
+    <MatPaginator Length="@Length" PageSize="@pageSize" Page="@OnPage"></MatPaginator>       
 
 
 <MatDialog @bind-IsOpen="@dialogIsOpen">
