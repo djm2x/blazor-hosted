@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MatBlazor;
 using MyBlazor.Client.Services;
+using MyBlazor.Client.Helper;
 
 namespace MyBlazor.Client
 {
@@ -35,6 +36,7 @@ namespace MyBlazor.Client
             services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri(env.IsDevelopment() ? "http://localhost:5000/" : env.BaseAddress) });
             // services.AddSingleton(sp => new UowService());
             services.AddSingleton<UowService>();
+            services.AddSingleton<MyConsole>();
 
             services.AddMatToaster(config =>
             {

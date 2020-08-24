@@ -1,0 +1,67 @@
+﻿@* @inject NavigationManager nav *@
+
+@* <style>
+    .nav-link {
+        color: black;
+    }
+</style> *@
+
+<MatNavMenu>
+   
+    
+
+    <MatRipple Color="@MatRippleColor.Primary">
+        <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+            <span class="oi oi-list-rich" aria-hidden="true"></span> Home
+        </NavLink>
+    </MatRipple>
+
+    <MatRipple Color="@MatRippleColor.Primary">
+        <NavLink class="nav-link" href="users">
+            <span class="oi oi-list-rich" aria-hidden="true"></span> Users
+        </NavLink>
+    </MatRipple>
+
+    <MatRipple Color="@MatRippleColor.Primary">
+        <NavLink class="nav-link" href="todos">
+            <span class="oi oi-list-rich" aria-hidden="true"></span> Todos
+        </NavLink>
+    </MatRipple>
+
+        <MatNavItem href="list"><MatIcon Icon="grade"></MatIcon>&nbsp; Mat Table </MatNavItem>
+        @* <MatNavItem  @onclick="@(e => nav.NavigateTo("list"))"><MatIcon Icon="grade"></MatIcon>&nbsp; Item 4 </MatNavItem> *@
+    @* <MatRipple Color="@MatRippleColor.Primary" >
+    </MatRipple> *@
+
+    <MatNavSubMenu>
+        <MatNavSubMenuHeader>
+            <MatNavItem AllowSelection="false"><MatIcon Icon="explore"></MatIcon>&nbsp; Item 6</MatNavItem>
+        </MatNavSubMenuHeader>
+        <MatNavSubMenuList>
+            <MatNavItem Disabled="true" Href="#">Item 6.A</MatNavItem>
+            <MatNavItem>Item 6.B</MatNavItem>
+        </MatNavSubMenuList>
+    </MatNavSubMenu>
+
+    <MatNavSubMenu>
+        <MatNavSubMenuHeader>
+            <MatNavItem AllowSelection="false"><MatIcon Icon="explore"></MatIcon>&nbsp; Item 6</MatNavItem>
+        </MatNavSubMenuHeader>
+        <MatNavSubMenuList>
+            <MatNavItem Disabled="true" Href="#">Item 6.A</MatNavItem>
+            <MatNavItem>Item 6.B</MatNavItem>
+        </MatNavSubMenuList>
+    </MatNavSubMenu>
+
+     
+
+
+</MatNavMenu>
+
+@code {
+    private void meth(MouseEventArgs e)
+    {
+        Console.WriteLine(e);
+    }
+}
+

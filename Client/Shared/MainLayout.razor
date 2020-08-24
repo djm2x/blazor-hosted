@@ -1,6 +1,54 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="sidebar">
+<MatAppBarContainer>
+    <MatAppBar Fixed="true" class="mat-elevation-z6">
+        <MatAppBarRow>
+            <MatAppBarSection>
+                <MatIconButton Icon="menu"  OnClick="@((e) => ButtonClicked())"></MatIconButton>
+                <MatAppBarTitle>MatBlazor - Material Design components for Blazor</MatAppBarTitle>
+            </MatAppBarSection>
+            <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+                <MatIconButton Icon="favorite"></MatIconButton>
+            </MatAppBarSection>
+        </MatAppBarRow>
+    </MatAppBar>
+ 
+    @* <MatAppBarContent>
+        @Body
+    </MatAppBarContent> *@
+</MatAppBarContainer>
+
+<MatDrawerContainer Style="width: 100vw; height: 100vh; margin-top: 65px;">
+    @* <MatHidden Breakpoint="@MatBreakpoint.SM" Direction="@MatHiddenDirection.Down">
+        <ChildContent>
+            <MatDrawer @bind-Opened="@Opened" Mode="@MatDrawerMode.Modal">
+                <MyNavMenu />
+            </MatDrawer>
+        </ChildContent>
+ 
+        <ElseContent>
+            <MatDrawer @bind-Opened="@Opened" Mode="@MatDrawerMode.Dismissible">
+                <MyNavMenu />
+            </MatDrawer>
+        </ElseContent>
+
+       
+
+    </MatHidden> *@
+
+    <MatDrawer @bind-Opened="@Opened" Mode="@MatDrawerMode.Dismissible" style="box-shadow: 3px 0 5px -1px rgba(0, 0, 0, 0.2),
+      6px 0 10px 0 rgba(0, 0, 0, 0.14), 1px 0 18px 0 rgba(0, 0, 0, 0.12); width: 200px;">
+        <MyNavMenu />
+    </MatDrawer>
+ 
+    <MatDrawerContent style="height: calc(100vh - 65px); margin-left: 200px;">
+        <main style="margin: 5px 10px;">
+            @Body
+        </main>
+    </MatDrawerContent>
+</MatDrawerContainer>
+
+@* <div class="sidebar">
     <NavMenu />
 </div>
 
@@ -8,6 +56,17 @@
 
 
     <div class="content px-4">
-        @Body
+        
     </div>
-</div>
+</div> *@
+
+@code
+{
+    bool Opened = true;
+
+    void ButtonClicked()
+    {
+        Opened = !Opened;
+    }
+
+}

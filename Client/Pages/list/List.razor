@@ -1,0 +1,44 @@
+@page "/list"
+
+
+<div class="d-flex flex-row-reverse pt-3 mb-3">
+    <MatButton Raised="true" Icon="add" Color="@MatRippleColor.Secondary" OnClick="@(e => { dialogIsOpen = true; })">Add</MatButton>
+</div>
+<MatTable Items="@dataSource" LoadInitialData="true" Striped="false" RequestApiOnlyOnce="false" AllowSelection="false" RowClass="tester"
+                   DebounceMilliseconds="150" class="mat-elevation-z5" UseSortHeaderRow="true">
+    <MatTableHeader>
+        <MatSortHeaderRow SortChanged="@SortData">
+            <MatSortHeader SortId="Name">Name</MatSortHeader>
+            <MatSortHeader SortId="Email">Email</MatSortHeader>
+            <MatSortHeader SortId="Password">Password</MatSortHeader>
+            <MatSortHeader></MatSortHeader>
+        </MatSortHeaderRow>
+    </MatTableHeader>
+    <MatTableRow>
+        <td>@context.Name</td>
+        <td>@context.Email</td>
+        <td>@context.Password</td>
+
+        <td>
+            <MatIconButton Icon="edit" @onclick="@(()=>edit(@context))"></MatIconButton>
+            &nbsp;
+            <MatIconButton Icon="delete" @onclick="@(()=>delete(@context))"></MatIconButton>
+        </td>
+    </MatTableRow>
+</MatTable>
+
+
+<MatDialog @bind-IsOpen="@dialogIsOpen">
+    <MatDialogTitle>@(o.Id == 0 ? "Add" : "Edit")</MatDialogTitle>
+    <MatDialogContent>
+        
+        <MatTextField @bind-Value="@o.Name" Label="Name"></MatTextField>                
+        <MatTextField @bind-Value="@o.Email" Label="Email"></MatTextField>                
+        <MatTextField @bind-Value="@o.Password" Label="Password"></MatTextField>      
+
+    </MatDialogContent>
+    <MatDialogActions>
+        <MatButton OnClick="@(e => { dialogIsOpen = false; })">No Thanks</MatButton>
+        <MatButton OnClick="@(e => submit(o))">OK</MatButton>
+    </MatDialogActions>
+</MatDialog>
