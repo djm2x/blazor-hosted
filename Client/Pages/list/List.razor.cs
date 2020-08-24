@@ -12,24 +12,30 @@ namespace MyBlazor.Client.Pages.list
     {
         [Inject]
         protected UowService uow { get; set; }
-
         [Inject]
         protected MyConsole console { get; set; }
-
         protected User[] dataSource = new User[] { };
-
         protected User o = new User();
-
-        protected bool dialogIsOpen = false;
+        protected bool dialogIsOpen = false, isLoadingResults = true;
         protected string sortBy = "id", sortDir = "desc";
-        protected int startIndex = 0, pageSize = 6, Length = 0;
+        protected int startIndex = 0, pageSize = 10, length = 0;
 
         protected override async Task OnInitializedAsync()
         {
-            var r = await uow.users.GetList(startIndex, pageSize, sortBy, sortDir);
+            await getList();
+        }
 
+        private async Task getList() {
+            isLoadingResults = true;
+            var r = await uow.users.GetList(startIndex, pageSize, sortBy, sortDir);
+            
             dataSource = r.list;
-            Length = r.lenght;
+            length = r.count;
+            isLoadingResults = false;
+            await console.log(isLoadingResults);
+            await console.log(r);
+
+            StateHasChanged();
         }
 
         // private async Task Log()
@@ -37,16 +43,20 @@ namespace MyBlazor.Client.Pages.list
         //     await JSRuntime.InvokeVoidAsync("console.log", o);
         // }
 
-        protected void SortData(MatSortChangedEvent sort)
+        protected async void SortData(MatSortChangedEvent sort)
         {
             sortBy = sort.SortId;
             sortDir = sort.Direction == MatSortDirection.Asc ? "asc" : "desc";
+
+            await getList();
         }
 
-        protected void OnPage(MatPaginatorPageEvent e)
+        protected async void OnPage(MatPaginatorPageEvent e)
         {
             pageSize = e.PageSize;
             startIndex = e.PageIndex * e.PageSize;
+
+            await getList();
         }
 
         public async void submit(User o)
@@ -57,14 +67,14 @@ namespace MyBlazor.Client.Pages.list
                 await uow.users.Post(o);
                 dialogIsOpen = false;
                 reset();
-                await OnInitializedAsync();
+                await getList();
             }
             else
             {
                 await uow.users.Put(o.Id, o);
                 dialogIsOpen = false;
                 reset();
-                await OnInitializedAsync();
+                await getList();
             }
 
 
@@ -86,7 +96,7 @@ namespace MyBlazor.Client.Pages.list
         public async void delete(User o)
         {
             await uow.users.Delete(o.Id);
-            await OnInitializedAsync();
+            await getList();
         }
     }
 }

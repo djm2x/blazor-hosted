@@ -33,6 +33,7 @@ namespace Server.Controllers
                 .Take(pageSize)
                 .ToListAsync()
                 ;
+                
             int count = await _context.Set<T>().CountAsync();
 
             return Ok(new { list = list, count = count });

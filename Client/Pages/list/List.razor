@@ -1,34 +1,75 @@
 @page "/list"
 
+<style>
+    
+    .example-container {
+        position: relative !important;
+    }
+
+    .example-loading-shade {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        background: rgba(0, 0, 0, 0.15) !important;
+        z-index: 1 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .example-table-container {
+        position: relative !important;
+        overflow: auto !important;
+        width: 100% !important;
+    }
+
+    .mdc-table {
+        margin: 0;
+        display: inline;
+        border: 0;
+    }
+</style>
 
 <div class="d-flex flex-row-reverse pt-3 mb-3">
     <MatButton Raised="true" Icon="add" Color="@MatRippleColor.Secondary" OnClick="@(e => { dialogIsOpen = true; })">Add</MatButton>
 </div>
-<MatTable Items="@dataSource" LoadInitialData="true" Striped="false" RequestApiOnlyOnce="false" AllowSelection="false" RowClass="tester"
-                   DebounceMilliseconds="150" class="mat-elevation-z5" UseSortHeaderRow="true">
-    <MatTableHeader>
-        <MatSortHeaderRow SortChanged="@SortData">
-            <MatSortHeader SortId="Name">Name</MatSortHeader>
-            <MatSortHeader SortId="Email">Email</MatSortHeader>
-            <MatSortHeader SortId="Password">Password</MatSortHeader>
-            <MatSortHeader></MatSortHeader>
-        </MatSortHeaderRow>
-    </MatTableHeader>
-    <MatTableRow>
-        <td>@context.Name</td>
-        <td>@context.Email</td>
-        <td>@context.Password</td>
 
-        <td>
-            <MatIconButton Icon="edit" @onclick="@(()=>edit(@context))"></MatIconButton>
-            &nbsp;
-            <MatIconButton Icon="delete" @onclick="@(()=>delete(@context))"></MatIconButton>
-        </td>
-    </MatTableRow>
+<div class="example-container mat-elevation-z8">
+    @if (isLoadingResults)
+    {
+        <div class="example-loading-shade">
+            <MatProgressBar Indeterminate="true" style="width: 40vw;"></MatProgressBar>
+        </div>
+    }
+    
+    <div class="example-table-container">
+        <MatTable Items="@dataSource" UseSortHeaderRow="true" ShowPaging="false" PageSize="@pageSize" Striped="true">
+            <MatTableHeader>
+                <MatSortHeaderRow SortChanged="@SortData">
+                    <MatSortHeader SortId="Name">Name</MatSortHeader>
+                    <MatSortHeader SortId="Email">Email</MatSortHeader>
+                    <MatSortHeader SortId="Password">Password</MatSortHeader>
+                    <MatSortHeader></MatSortHeader>
+                </MatSortHeaderRow>
+            </MatTableHeader>
+            <MatTableRow>
+                <td>@context.Name</td>
+                <td>@context.Email</td>
+                <td>@context.Password</td>
 
-</MatTable>
-    <MatPaginator Length="@Length" PageSize="@pageSize" Page="@OnPage"></MatPaginator>       
+                <td>
+                    <MatIconButton style="color: var(--mdc-theme-secondary);" Icon="edit" @onclick="@(()=>edit(@context))"></MatIconButton>
+                    &nbsp;
+                    <MatIconButton style="color: var(--mdc-theme-error);" Icon="delete" @onclick="@(()=>delete(@context))"></MatIconButton>
+                </td>
+            </MatTableRow>
 
+        </MatTable>
+        <MatPaginator Length="@length" PageSize="@pageSize" Page="@OnPage"></MatPaginator>       
+    </div>
+</div>
 
 <MatDialog @bind-IsOpen="@dialogIsOpen">
     <MatDialogTitle>@(o.Id == 0 ? "Add" : "Edit")</MatDialogTitle>

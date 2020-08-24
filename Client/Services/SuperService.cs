@@ -50,9 +50,9 @@ namespace MyBlazor.Client.Services
         }
     }
 
-    public interface Res<T> {
-        T[] list {set; get;}
+    public class Res<T> {
+        public T[] list {set; get;}
 
-        int lenght { get; set; }
+        public int count { get; set; }
     }
 }

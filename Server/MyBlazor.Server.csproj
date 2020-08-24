@@ -25,8 +25,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <!-- <ProjectReference Include="..\Client\MyBlazor.Client.csproj" /> -->
+  <ItemGroup >
+    <!-- <ProjectReference Condition=" '$(ASPNETCORE_ENVIRONMENT)' == '' " Include="..\Client\MyBlazor.Client.csproj" /> -->
     <ProjectReference Include="..\Shared\MyBlazor.Shared.csproj" />
   </ItemGroup>
 
@@ -35,6 +35,13 @@
     <Watch Include="..\**\*.scss" />
     <Watch Include="..\**\*.html" />
     <Watch Include="..\**\*.cs" />
+  </ItemGroup> -->
+
+  <!-- <ItemGroup>
+    <Watch Remove="..\**\*.razor" />
+    <Watch Remove="..\**\*.scss" />
+    <Watch Remove="..\**\*.html" />
+    <Watch Remove="..\**\*.cs" />
   </ItemGroup> -->
 
 
