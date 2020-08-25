@@ -1,10 +1,15 @@
 ﻿@* @inject NavigationManager nav *@
 
-@* <style>
+<style>
     .nav-link {
         color: black;
     }
-</style> *@
+
+    .active {
+        color: black;
+        background: green;
+    }
+</style>
 
 <MatNavMenu>
    
@@ -28,7 +33,13 @@
         </NavLink>
     </MatRipple>
 
-        <MatNavItem href="list"><MatIcon Icon="grade"></MatIcon>&nbsp; Mat Table </MatNavItem>
+    <MatRipple Color="@MatRippleColor.Primary">
+        <NavLink class="nav-link" href="list">
+            <MatIcon Icon="grade"></MatIcon>&nbsp; Mat Table
+        </NavLink>
+    </MatRipple>
+
+        <MatNavItem href="list" ><MatIcon Icon="grade"></MatIcon>&nbsp; Mat Table </MatNavItem>
         @* <MatNavItem  @onclick="@(e => nav.NavigateTo("list"))"><MatIcon Icon="grade"></MatIcon>&nbsp; Item 4 </MatNavItem> *@
     @* <MatRipple Color="@MatRippleColor.Primary" >
     </MatRipple> *@

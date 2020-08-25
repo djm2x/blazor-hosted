@@ -28,20 +28,13 @@ namespace MyBlazor.Client.Pages.list
         private async Task getList() {
             isLoadingResults = true;
             var r = await uow.users.GetList(startIndex, pageSize, sortBy, sortDir);
+            isLoadingResults = false;
             
             dataSource = r.list;
             length = r.count;
-            isLoadingResults = false;
-            await console.log(isLoadingResults);
-            await console.log(r);
 
             StateHasChanged();
         }
-
-        // private async Task Log()
-        // {
-        //     await JSRuntime.InvokeVoidAsync("console.log", o);
-        // }
 
         protected async void SortData(MatSortChangedEvent sort)
         {
@@ -76,8 +69,6 @@ namespace MyBlazor.Client.Pages.list
                 reset();
                 await getList();
             }
-
-
         }
 
         public void reset()
@@ -85,12 +76,10 @@ namespace MyBlazor.Client.Pages.list
             this.o = new User();
         }
 
-        public async void edit(User o)
+        public void edit(User o)
         {
-
             this.o = o;
             dialogIsOpen = true;
-            await console.log(dialogIsOpen);
         }
 
         public async void delete(User o)
