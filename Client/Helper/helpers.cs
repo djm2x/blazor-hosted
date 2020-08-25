@@ -14,7 +14,7 @@ namespace MyBlazor.Client.Helper
         {
             this.JSRuntime = JSRuntime;
         }
-        public ValueTask log(object o)
+        public ValueTask log(params object[] o)
         {
             return JSRuntime.InvokeVoidAsync("console.log", o);
         }
