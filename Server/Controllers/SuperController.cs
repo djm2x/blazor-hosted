@@ -8,6 +8,7 @@ using System;
 using System.Reflection;
 using System.Linq.Expressions;
 using MyBlazor.Server.Models;
+using MyBlazor.Server.Helpers;
 
 namespace Server.Controllers
 {
@@ -28,7 +29,7 @@ namespace Server.Controllers
             // string tableName = typeof(T).FullName.Substring(i + 1) + "s";
 
             var list = await _context.Set<T>()
-                // .OrderByName<T>(sortBy, sortDir == "desc")
+                .OrderByName<T>(sortBy, sortDir == "desc")
                 .Skip(startIndex)
                 .Take(pageSize)
                 .ToListAsync()
@@ -87,7 +88,7 @@ namespace Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<T>>> Get()
         {
-            return await _context.Set<T>()/*.OrderByName<T>("Id")*/.ToListAsync();
+            return await _context.Set<T>().OrderByName<T>("Id").ToListAsync();
         }
 
 

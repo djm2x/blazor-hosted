@@ -18,7 +18,7 @@
     </MatAppBarContent> *@
 </MatAppBarContainer>
 
-<MatDrawerContainer Style="width: 100vw; height: 100vh; margin-top: 65px;">
+<MatDrawerContainer Style="width: 100vw; height: 100vh; margin-top: 65px; position: fixed;">
     @* <MatHidden Breakpoint="@MatBreakpoint.SM" Direction="@MatHiddenDirection.Down">
         <ChildContent>
             <MatDrawer @bind-Opened="@Opened" Mode="@MatDrawerMode.Modal">
@@ -40,8 +40,8 @@
       6px 0 10px 0 rgba(0, 0, 0, 0.14), 1px 0 18px 0 rgba(0, 0, 0, 0.12); width: 200px;">
         <MyNavMenu />
     </MatDrawer>
- 
-    <MatDrawerContent style="height: calc(100vh - 65px); margin-left: 200px;">
+
+    <MatDrawerContent style="@margin">
         <main style="margin: 5px 10px;">
             @Body
         </main>
@@ -62,11 +62,14 @@
 
 @code
 {
-    bool Opened = true;
+    static bool Opened = true;
+
+    string margin = Opened == true ? "height: calc(100vh - 65px);margin-left: 200px;" : "height: calc(100vh - 65px);margin-left: 0;";
 
     void ButtonClicked()
     {
         Opened = !Opened;
+        margin = Opened == true ? "height: calc(100vh - 65px);margin-left: 200px;" : "height: calc(100vh - 65px);margin-left: 0;";
     }
 
 }
